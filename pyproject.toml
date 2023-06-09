@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "reward-model-trainer"
+version = "0.1.0"
+description = ""
+authors = ["Yankı Sırtaş <yankisirtas@hotmail.com>"]
+readme = "README.md"
+packages = [{include = "reward_model_trainer"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+discord = "^2.2.3"
+pandas = "^2.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
