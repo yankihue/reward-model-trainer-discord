@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 token = os.getenv("token")
-data = pd.read_csv("unranked_outputs_unmarked.csv")
+data = pd.read_csv("unranked_outputs.csv")
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -43,11 +43,11 @@ async def on_message(message):
         print("here")
         index = int(open('pos', 'r').read())
         open('pos', 'w').write(str(index + 1))
-        data.loc[index, "marked"] = 1
+        data.loc[index+1, "marked"] = 1
         if (_content=="1"):
             print("chosen")
         if (_content=="2"):
-            data.loc[index, "chosen"], data.loc[index,"rejected"] = data.loc[index, "rejected"], data.loc[index,"chosen"]
+            data.loc[index+1, "chosen"], data.loc[index+1,"rejected"] = data.loc[index+1, "rejected"], data.loc[index+1,"chosen"]
         elif (_content=="3"):
             data.loc[index, "marked"] = 2 # 2 means neither of them is positive, 1 means its been selected correctly
         data.to_csv("unranked_outputs.csv", index=False)
