@@ -1,7 +1,10 @@
 import discord
 import pandas as pd
-token = "token_here"
-data = pd.read_csv("unranked_outputs.csv")
+import os
+from dotenv import load_dotenv
+load_dotenv()
+token = os.getenv("token")
+data = pd.read_csv("unranked_outputs_unmarked.csv")
 
 intents = discord.Intents.default()
 intents.message_content = True

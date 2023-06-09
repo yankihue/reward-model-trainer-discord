@@ -10,6 +10,7 @@ packages = [{include = "reward_model_trainer"}]
 python = "^3.11"
 discord = "^2.2.3"
 pandas = "^2.0.2"
+python-dotenv = "^1.0.0"
 
 
 [build-system]
