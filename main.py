@@ -14,7 +14,7 @@ async def display_message(message):
     global bot_state
     index = int(open('pos', 'r').read())
     if index < len(data):
-        to_send = 'index: {0}\nOutput 1: {1}{2}\nOutput 2:{1}{3} \n\nWhich one seems more positive to you? Respond with the number 1 or 2. \n If neither of them is positive, type 3.'.format(index, data.loc[index+1, "prompt"], data.loc[index+1, "chosen"],data.loc[index+1, "rejected"])
+        to_send = 'index: {0}\nOutput 1: {1}{2}\nOutput 2:{1}{3} \n\nWhich one seems more positive to you? Respond with the number 1 or 2. \n If neither of them is positive, type 3.'.format(index, data.loc[index, "prompt"], data.loc[index, "chosen"],data.loc[index, "rejected"])
     else:
         to_send = 'All of the output has been ranked!\n'\
                   '----------END----------'
@@ -43,11 +43,11 @@ async def on_message(message):
         print("here")
         index = int(open('pos', 'r').read())
         open('pos', 'w').write(str(index + 1))
-        data.loc[index+1, "marked"] = 1
+        data.loc[index, "marked"] = 1
         if (_content=="1"):
             print("chosen")
         if (_content=="2"):
-            data.loc[index+1, "chosen"], data.loc[index+1,"rejected"] = data.loc[index+1, "rejected"], data.loc[index+1,"chosen"]
+            data.loc[index, "chosen"], data.loc[index,"rejected"] = data.loc[index, "rejected"], data.loc[index,"chosen"]
         elif (_content=="3"):
             data.loc[index, "marked"] = 2 # 2 means neither of them is positive, 1 means its been selected correctly
         data.to_csv("unranked_outputs.csv", index=False)
