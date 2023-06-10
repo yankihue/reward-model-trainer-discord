@@ -39,7 +39,7 @@ async def on_message(message):
         await message.channel.send('----------------START--------------')
         await display_message(message)
 
-    else:
+    elif(_content=="1" or _content=="2" or _content=="3"):
         print("here")
         index = int(open('pos', 'r').read())
         open('pos', 'w').write(str(index + 1))
@@ -52,6 +52,15 @@ async def on_message(message):
             data.loc[index, "marked"] = 2 # 2 means neither of them is positive, 1 means its been selected correctly
         data.to_csv("unranked_outputs.csv", index=False)
         await display_message(message)
-
+    elif(_content=="undo"):
+        index = int(open('pos', 'r').read())
+        open('pos', 'w').write(str(index - 1))
+        data.loc[index-1, "marked"] = 0
+        data.to_csv("unranked_outputs.csv", index=False)
+        await message.channel.send('Last feedback deleted from dataset. Go again:\n\n')
+        await display_message(message)
+    elif(_content=="end trainer"):
+        await message.channel.send('Pausing trainer for now. Type "start trainer" to start again.')
+        await message.channel.send('Thank you for your help!')
 
 client.run(token)
